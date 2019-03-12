@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.amap.api.maps.MapView
+        android:id="@+id/before_arround_search_mapview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"/>
+
+        <RelativeLayout
+            android:id="@+id/before_arround_search_top_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <!--imeOptions="actionSearch"定义软键盘的Enter键显示的文本为搜索图标
+        dropDownVerticalOffset定义文本框的垂直偏移量
+        completionThreshold设置用户至少输入多少个字符才会显示提示
+        layout_alignTop与控件顶部对齐
+        tint设置图片的颜色-->
+            <ImageButton
+                android:id="@+id/before_arround_search_backbtn"
+                android:layout_width="23dp"
+                android:layout_height="43dp"
+                android:layout_alignBottom="@+id/before_arround_search_text_view"
+                android:layout_alignTop="@+id/before_arround_search_text_view"
+                android:layout_centerVertical="true"
+                android:background="@drawable/before_goto_searcharround_back"
+                android:clickable="true"
+                android:contentDescription="@string/back"
+                android:scaleType="centerInside"
+                android:src="@drawable/back" />
+
+            <AutoCompleteTextView
+                android:id="@+id/before_arround_search_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_toRightOf="@id/before_arround_search_backbtn"
+                android:background="@drawable/before_goto_searcharround_tv"
+                android:completionThreshold="1"
+                android:dropDownVerticalOffset="20.0dip"
+                android:gravity="center_vertical"
+                android:imeOptions="actionSearch"
+                android:inputType="text|textAutoComplete"
+                android:labelFor="@id/before_arround_search_text_view"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textSize="16.0sp"
+                android:clickable="true"
+                tools:ignore="RtlHardcoded" /><!--记得加最后一行，不然会报错-->
+        </RelativeLayout>
+    <com.nightonke.boommenu.BoomMenuButton
+        android:id="@+id/before_arround_search_bmbtn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="bottom|center_horizontal" />
+</FrameLayout>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ShowInfoActivity">
+
+
+    <!--<com.amap.api.maps.MapView-->
+    <!--android:id="@+id/map"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="0dp"-->
+    <!--tools:layout_editor_absoluteY="0dp">-->
+    <!--</com.amap.api.maps.MapView>-->
+
+    <!--<TextView-->
+    <!--android:textSize="20sp"-->
+    <!--android:layout_marginTop="30dp"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:text="设置当前进度固定不可拖动"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content" />-->
+
+    <LinearLayout
+        android:id="@+id/full"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/roadInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title">
+
+        <TextView
+            android:id="@+id/progesss_value1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/percentage"
+            android:gravity="center"
+            android:paddingBottom="8dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingTop="2dp"
+            android:text="0%"
+            android:textColor="@android:color/white"
+            android:textSize="12sp" />
+
+        <ProgressBar
+            android:id="@+id/progesss1"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/myprogressbar"
+            android:indeterminateDrawable="@android:drawable/progress_indeterminate_horizontal"
+            android:indeterminateOnly="false"
+            android:max="100"
+            android:maxHeight="50dp"
+            android:minHeight="16dp"
+            android:progress="0"
+            android:progressDrawable="@drawable/myprogressbar" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/roadInfo"
+        android:layout_width="348dp"
+        android:layout_height="93dp"
+        android:layout_marginBottom="316dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/textview_border"
+        android:gravity="center"
+        android:text="旅程进度：50%\n当前城市为：佛山市\n当前道路为：桃园西路\n预计到达时间：54min"
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/full" />
+
+    <TextView
+        android:id="@+id/currentWeatherInfo"
+        android:layout_width="164dp"
+        android:layout_height="102dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/textview_border"
+        android:gravity="center"
+        android:text="温度：20℃\n湿度：30%\n风向：东风\n风力：≤3级"
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/roadInfo"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <TextView
+        android:id="@+id/goalWeatherInfo"
+        android:layout_width="164dp"
+        android:layout_height="102dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/textview_border"
+        android:gravity="center"
+        android:text="温度：20℃\n湿度：30%\n风向：东风\n风力：≤3级"
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/currentWeatherInfo"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <TextView
+        android:id="@+id/tips"
+        android:layout_width="346dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/textview_border"
+        android:text=""
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/goalWeatherInfo" />
+
+    <ImageView
+        android:id="@+id/currentWeatherShow"
+        android:layout_width="103dp"
+        android:layout_height="78dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/sunny"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/currentWeatherInfo"
+        app:layout_constraintTop_toBottomOf="@+id/roadInfo" />
+
+    <ImageView
+        android:id="@+id/goalWeatherShow"
+        android:layout_width="103dp"
+        android:layout_height="78dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="138dp"
+        android:src="@drawable/moderaterain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/goalWeatherInfo"
+        app:layout_constraintTop_toBottomOf="@+id/roadInfo" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:background="@drawable/textview_background_style"
+        android:gravity="center"
+        android:text="实时信息显示"
+        android:textSize="24dp"
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="53dp" />
+
+    <!--天气图标：https://www.heweather.com/documents/condition-->
+
+</android.support.constraint.ConstraintLayout>

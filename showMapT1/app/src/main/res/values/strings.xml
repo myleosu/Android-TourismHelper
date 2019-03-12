@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">出行小助手</string>
+    <string name="input_location">Click to search</string>
+    <string name="Focus">To focus the Map</string>
+    <string name="Search">搜索</string>
+    <string name="Surround_Search">在附近搜索</string>
+    <string name="delete_records">清除历史搜索</string>
+    <string name="click_to_search">搜索地址</string>
+    <string name="app_label">出行小助手</string>
+    <string name="search_hint">搜索目的地</string>
+    <string name="back">返回</string>>
+</resources>

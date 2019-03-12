@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--外层使用DrawerLayout画布布局-->
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.amap.api.maps.MapView
+            android:id="@+id/first_map_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <RelativeLayout
+            android:id="@+id/rela_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <!--imeOptions="actionSearch"定义软键盘的Enter键显示的文本为搜索图标
+            dropDownVerticalOffset定义文本框的垂直偏移量
+            completionThreshold设置用户至少输入多少个字符才会显示提示
+            layout_alignTop与控件顶部对齐
+            tint设置图片的颜色-->
+            <ImageButton
+                android:id="@+id/first_map_view_user_button"
+                android:layout_width="25dp"
+                android:layout_height="43dp"
+                android:src="@drawable/user"
+                android:clickable="true"
+                android:background="@drawable/before_goto_searcharround_back"
+                android:layout_centerVertical="true"
+                android:scaleType="centerInside"
+                android:layout_alignTop="@+id/first_map_view_text_view"
+                android:layout_alignBottom="@+id/first_map_view_text_view"
+                />
+            <AutoCompleteTextView
+                android:id="@+id/first_map_view_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_toRightOf="@id/first_map_view_user_button"
+                android:padding="8dp"
+                android:completionThreshold="1"
+                android:dropDownVerticalOffset="20.0dip"
+                android:gravity="center_vertical"
+                android:imeOptions="actionSearch"
+                android:inputType="text|textAutoComplete"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:textColor="#000000"
+                android:textSize="16.0sp"
+                android:background="@drawable/before_goto_searcharround_tv"
+                android:hint="搜索目的地"
+                />
+        </RelativeLayout>
+    </FrameLayout>
+
+    <!--侧栏部分布局，使用NavigationView侧栏布局，其中分为上面的头布局，使用nav_header布局，下面的菜单布局使用nav_menu布局-->
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:menu="@menu/nav_menu"
+        app:headerLayout="@layout/nav_header"/>
+</android.support.v4.widget.DrawerLayout>
+
+

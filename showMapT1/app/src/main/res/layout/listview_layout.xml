@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@drawable/lv_item_selector">
+    <ImageView
+        android:id="@+id/img_left"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/listview_left"
+        android:layout_weight="1"
+        android:scaleType="centerInside"
+        />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_height="60dp"
+        android:layout_width="280dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        >
+
+        <TextView android:layout_height="30dp"
+            android:layout_width="280dp"
+            android:textColor="#000000"
+            android:gravity="left|bottom"
+            android:textSize="15sp"
+            android:lines="1"
+            android:id="@+id/poi_field_id"/>
+        <TextView
+            android:layout_height="30dp"
+            android:layout_width="280dp"
+            android:textSize="13sp"
+            android:gravity="left|top"
+            android:lines="1"
+            android:id="@+id/poi_value_id" />
+        </LinearLayout>
+
+
+    <ImageView
+            android:id="@+id/img_right"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/listview_right"
+            android:scaleType="centerInside"
+            android:contentDescription="@string/Focus"
+            />
+</LinearLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--设置LinearLayout灰色边框，只保留底部边框，去掉三个框-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:state_pressed="true" android:drawable="@color/grey" />
+    <item android:drawable="@color/white"/>
+</selector>

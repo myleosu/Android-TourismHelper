@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--登录界面布局-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/login_user_big_imge"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/user_big"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="400dp"
+        android:layout_height="60dp"
+        android:inputType="textPersonName"
+        android:hint="请输入您的用户名"
+        android:id="@+id/login_username_edit"
+        android:layout_below="@+id/login_user_big_imge"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        />
+    <EditText
+        android:layout_width="400dp"
+        android:layout_height="60dp"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:hint="请输入您的密码"
+        android:id="@+id/login_password_edit"
+        android:layout_below="@+id/login_username_edit"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+    <Button
+        android:id="@+id/Login_Button_on_login"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/btn_selector"
+        android:text="登录"/>
+
+    <Button
+        android:id="@+id/register_Button_on_login"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_selector"
+        android:text="注册"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/Login_Button_on_login"
+        android:layout_alignLeft="@+id/Login_Button_on_login"
+        android:layout_alignStart="@+id/Login_Button_on_login" />
+</RelativeLayout>

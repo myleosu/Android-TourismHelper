@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="#FFFFFF"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--RelativeLayout框离上下左右的距离是5dp,
+    其宽度与填满父容器宽度，gravity限定它里面的内容垂直居中，orientation限定
+    其整体布局水平居中-->
+    <RelativeLayout
+        android:id="@+id/rela_title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_margin="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <!--imeOptions="actionSearch"定义软键盘的Enter键显示的文本为搜索图标
+        dropDownVerticalOffset定义文本框的垂直偏移量
+        completionThreshold设置用户至少输入多少个字符才会显示提示
+        layout_alignTop与控件顶部对齐
+        tint设置图片的颜色-->
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="25dp"
+            android:layout_height="48dp"
+            android:src="@drawable/back"
+            android:clickable="true"
+            android:background="@drawable/back_layout"
+            android:layout_centerVertical="true"
+            android:scaleType="centerInside"
+            />
+
+        <Button
+            android:id="@+id/search_btn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:text="搜索"
+            android:textSize="15.0sp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_layout"
+            android:clickable="true"
+            android:visibility="gone"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/text_view"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:completionThreshold="1"
+            android:dropDownVerticalOffset="20.0dip"
+            android:gravity="center_vertical"
+            android:hint="搜索"
+            android:imeOptions="actionSearch"
+            android:inputType="text|textAutoComplete"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:textColor="#000000"
+            android:textSize="18.0sp"
+            android:background="@drawable/auto_tv_layout"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+    <ListView
+        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:id="@+id/list_view"
+        android:choiceMode="singleChoice"/>
+
+    <include layout="@layout/history_lv"/>
+    <include layout="@layout/record_history_lv"/>
+</LinearLayout>

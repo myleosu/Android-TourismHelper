@@ -18,6 +18,9 @@ android {
     }
     buildToolsVersion '27.0.3'
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+
+
+    useLibrary 'org.apache.http.legacy'
 }
 
 dependencies {

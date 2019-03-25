@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
@@ -52,6 +53,9 @@ public class FirstActivityShowMap extends PermissionsActivity implements View.On
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.firstactivityshowmap_layout);
+
+        //设置acticity启动的时候输入法默认不开启
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         /**
          * 创建数据库，创建historytable和usertable表

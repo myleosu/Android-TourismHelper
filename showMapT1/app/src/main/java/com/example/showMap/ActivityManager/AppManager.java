@@ -11,6 +11,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * Created by asus on 2019/3/27.
  */
 
+/**
+ * Activity管理类
+ */
 public class AppManager {
 
     private static CopyOnWriteArrayList<Activity> mActivityStack ;
@@ -81,5 +84,19 @@ public class AppManager {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 从堆栈中获得指定Activity的context
+     * @param cls
+     * @return
+     */
+    public Context getActivitycontext(Class<?> cls){
+        for(Activity activity:mActivityStack){
+            if(activity.getClass().equals(cls)){
+                return activity;
+            }
+        }
+        return null;
     }
 }

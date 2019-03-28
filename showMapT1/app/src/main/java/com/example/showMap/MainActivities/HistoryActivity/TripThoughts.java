@@ -1,5 +1,6 @@
 package com.example.showMap.MainActivities.HistoryActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,9 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.example.showMap.ActicityTools.MyActivityTools;
 import com.example.showMap.ActivityManager.AppManager;
-import com.example.showMap.ClientHttpService.DelectPostService;
-import com.example.showMap.ClientHttpService.LoginPostService;
 import com.example.showMap.ClientHttpService.UpdatePostService;
 import com.example.showMap.MainActivities.FirstActivityShowMap;
 import com.example.showMap.MainActivities.HistoryActivity.History;
@@ -39,13 +40,12 @@ public class TripThoughts extends AppCompatActivity implements View.OnClickListe
     private ImageButton save;
     private ImageButton share;
     private TextView routeInfo;
-    private EditText content;
+    private static EditText content;
     private Intent intent;
     private String trip_mind;
     private ImageView img;
-    private int Listhistory_postion = -1;//HistoryList对应的id
+    private static int Listhistory_postion = -1;//HistoryList对应的id
     private History_item mhistory_item;//Histoy_list对应的history_item
-    Handler handler;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.trip_record);
@@ -117,117 +117,52 @@ public class TripThoughts extends AppCompatActivity implements View.OnClickListe
     }
 
     private void Savehis_History(){
-        new SavePostThread(mhistory_item.getUsername(),FirstActivityShowMap.password,mhistory_item.getId(),content.getText().toString()).start();
-        handler = new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                if(msg.what == 666) {
-                    if(msg.obj.equals("SUCCEEDED")){
-                        Toast.makeText(TripThoughts.this,"更新成功！",Toast.LENGTH_SHORT).show();
-                        finish();
-                    }else{
-                        Toast.makeText(TripThoughts.this,"更新失败！",Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        };
+        if(MyActivityTools.isConnectIntent(TripThoughts.this)){
+            //启动SavePostThread线程
+            new MyActivityTools.SavePostThread(mhistory_item.getUsername(),FirstActivityShowMap.password,mhistory_item.getId(),content.getText().toString()).start();
+            Handler savehandler = MyActivityTools.myhandler;
+        }else{
+            Toast.makeText(TripThoughts.this,"请检查当前网络状态!",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void Deletethis_History(){
-        new DeletePostThread(mhistory_item.getUsername(), FirstActivityShowMap.password,mhistory_item.getId()).start();
-        handler = new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                if(msg.what == 555){
-                    if(msg.obj.equals("SUCCEEDED")){
-                        Toast.makeText(TripThoughts.this,"删除成功！",Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                    else{
-                        Toast.makeText(TripThoughts.this,"删除失败！",Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        };
-    }
-    public static int HISTORY_SUCCEEDED = 5;
-    public static int HISTORY_FAILED = 4;
-
-    public class SavePostThread extends Thread{
-        private String username;
-        private String password;
-        private int id;
-        private String memory;
-        SavePostThread(String username,String password,int id,String memory){
-            this.username = username;
-            this.password = password;
-            this.id = id;
-            this.memory = memory;
-        }
-
-        @Override
-        public void run() {
-            int responseInt = HISTORY_FAILED;
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("username",username));
-            params.add(new BasicNameValuePair("password",password));
-            params.add(new BasicNameValuePair("id",String.valueOf(id)));
-            params.add(new BasicNameValuePair("memory",memory));
-            //发送数据，获取对象
-            responseInt = UpdatePostService.send(params);
-            Log.i("tag","TriThoughtActivity:responseInt = " + responseInt);
-            //准备发送消息
-            Message msg = handler.obtainMessage();
-            //设置消息默认值
-            msg.what = 666;
-            //服务器返回信息的判断和处理
-            if(responseInt == HISTORY_SUCCEEDED){
-                msg.obj = "SUCCEEDED";
-            }else if(responseInt == HISTORY_FAILED){
-                msg.obj = "FAILED";
-            }else{
-                Log.i("tag","TriThoughtAcitivity:msg.obj 错误");
-            }
-            handler.sendMessage(msg);
+        if(MyActivityTools.isConnectIntent(TripThoughts.this)){
+            //启动DeletePostThread线程
+            new MyActivityTools.DeletePostThread(MyActivityTools.currentusername,MyActivityTools.currentpassword,mhistory_item.getId()).start();
+            Handler deletehandler = MyActivityTools.myhandler;
+        }else{
+            Toast.makeText(TripThoughts.this,"请检查当前网络状态!",Toast.LENGTH_SHORT).show();
         }
     }
 
-    public class DeletePostThread extends Thread{
-
-        private String username;
-        private String password;
-        private int id;
-        DeletePostThread(String username,String password,int id){
-            this.username = username;
-            this.password = password;
-            this.id = id;
+    /**
+     * 处理DeletePostThreadHandler消息
+     */
+    public static void resolve_DeleteHandler(Message msg){
+        Context deletecontext = AppManager.getInstance().getActivitycontext(TripThoughts.class);
+        if(msg.obj.equals("SUCCEEDED")){
+            Toast.makeText(deletecontext,"删除成功！",Toast.LENGTH_SHORT).show();
+            History.history_item_List.remove(Listhistory_postion);
+            History.recyclerView.setAdapter(new History_item_Adapter(History.history_item_List));
+            AppManager.getInstance().killActivity(TripThoughts.class);
         }
+        else{
+            Toast.makeText(deletecontext,"删除失败！",Toast.LENGTH_SHORT).show();
+        }
+    }
 
-        @Override
-        public void run() {
-            int responseInt = HISTORY_FAILED;
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("username",username));
-            params.add(new BasicNameValuePair("password",password));
-            params.add(new BasicNameValuePair("id",String.valueOf(id)));
-            //发送数据，获取对象
-            responseInt = DelectPostService.send(params);
-            Log.i("tag","TriThoughtActivity:responseInt = " + responseInt);
-            //准备发送消息
-            Message msg = handler.obtainMessage();
-            //设置消息默认值
-            msg.what = 555;
-            //服务器返回信息的判断和处理
-            if(responseInt == HISTORY_SUCCEEDED){
-                msg.obj = "SUCCEEDED";
-            }else if(responseInt == HISTORY_FAILED){
-                msg.obj = "FAILED";
-            }else{
-                Log.i("tag","TriThoughtAcitivity:msg.obj 错误");
-            }
-            handler.sendMessage(msg);
+    /**
+     * 处理SavePostThreadHandler消息
+     */
+    public static void resolve_SaveHandler(Message msg){
+        Context savecontext = AppManager.getInstance().getActivitycontext(TripThoughts.class);
+        if(msg.obj.equals("SUCCEEDED")){
+            Toast.makeText(savecontext,"更新成功！",Toast.LENGTH_SHORT).show();
+            History.history_item_List.get(Listhistory_postion).setTour_memory(content.getText().toString());
+            History.recyclerView.setAdapter(new History_item_Adapter(History.history_item_List));
+        }else{
+            Toast.makeText(savecontext,"更新失败！",Toast.LENGTH_SHORT).show();
         }
     }
 }

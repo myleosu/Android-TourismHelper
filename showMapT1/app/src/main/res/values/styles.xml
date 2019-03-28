@@ -1,6 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
+    <!--Base.Theme.AppCompat.Light.DarkActionBar-->
     <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#32A082</item>
@@ -14,8 +15,4 @@
         <attr name="civ_fill_color" format="color" />
     </declare-styleable>
 
-    <style name="BottomDialog" parent="@style/Base.V7.Theme.AppCompat.Light.Dialog">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-    </style>
 </resources>

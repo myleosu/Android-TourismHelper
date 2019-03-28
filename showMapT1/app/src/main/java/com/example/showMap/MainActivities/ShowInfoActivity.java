@@ -50,6 +50,7 @@ import com.amap.api.services.route.DriveRouteResult;
 import com.amap.api.services.route.RideRouteResult;
 import com.amap.api.services.route.RouteSearch;
 import com.amap.api.services.route.WalkRouteResult;
+import com.example.showMap.ActicityTools.MyActivityTools;
 import com.example.showMap.ActivityManager.AppManager;
 import com.example.showMap.ClientHttpService.InserthistoryPostService;
 import com.example.showMap.GetSystemPermissions.PermissionsActivity;
@@ -117,11 +118,6 @@ public class ShowInfoActivity extends PermissionsActivity implements LocationSou
     private TextView progesssValue;
     private LinearLayout full;
 
-
-    //线程设置
-    Handler handler;
-
-
     /**
      * 弹窗部分设置
      */
@@ -145,7 +141,6 @@ public class ShowInfoActivity extends PermissionsActivity implements LocationSou
         buildingname = intent.getStringExtra("0");
         cityDistrict = intent.getStringExtra("1");
 
-        //setContentView(R.layout.showinfoactivity_layout);
         setContentView(R.layout.showinfoactivity_new_layout);
 
         //进度条
@@ -162,30 +157,6 @@ public class ShowInfoActivity extends PermissionsActivity implements LocationSou
         initLoc();//定位,天气信息，路线规划初始化   ！！！旅程途中，更新数据时调用这个函数就ok了
         initNew();//弹窗界面的初始化设置
 
-        /**
-         * 处理444线程返回信息
-         */
-        handler = new Handler(){
-            public void handleMessage(Message msg){
-                super.handleMessage(msg);
-                if(msg.what == 444){
-                    //处理返回线程返回的信息
-                    if(msg.obj.toString().equals("SUCCEEDED")){
-                        Log.i("tag:","插入旅程历史记录成功！");
-                    }else{
-                        Log.i("tag","向服务器中插入历史记录失败");
-                    }
-                }
-            }
-        };
-    }
-
-    //share
-    private void shareNote(){
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT,"wdnmd");
-        startActivity(intent);
     }
 
     //设置目的地信息
@@ -199,6 +170,7 @@ public class ShowInfoActivity extends PermissionsActivity implements LocationSou
         progesssValue.setText(new StringBuffer().append(progesss.getProgress()).append("%"));
         setPosWay1();
     }
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -301,10 +273,10 @@ public class ShowInfoActivity extends PermissionsActivity implements LocationSou
                     //计算当前位置与目的地的行程信息
                     setRouteSearch(new LatLonPoint(currentLatitude,currentLongitude),new LatLonPoint(goalLatitude,goalLongitude));
                 }
-                //获取定位时间
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date date = new Date(aMapLocation.getTime());
-                df.format(date);
+//                //获取定位时间
+//                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                Date date = new Date(aMapLocation.getTime());
+//                df.format(date);
             }else {
                 //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
                 Log.e("AmapError","location Error, ErrCode:"
@@ -694,63 +666,14 @@ public class ShowInfoActivity extends PermissionsActivity implements LocationSou
     }
 
 
-    static int HISTORY_SUCCEEDED = 5;
-    static int HISTORY_FAILED = 4;
-    /**
-     * 开启发送插入历史记录的线程
-     */
-    public class InserthistoryPostThread extends Thread{
-
-
-        private String username,password,historyjson;
-
-        public InserthistoryPostThread(String username,String password,String historyjson){
-            this.username = username;
-            this.password = password;
-            this.historyjson = historyjson;
-        }
-
-        @Override
-        public void run() {
-            //Sevice传回result数字
-            int responseint = HISTORY_FAILED;
-            if(!username.equals("")){
-                //要发送的数据
-                List<NameValuePair> params = new ArrayList<NameValuePair>();
-                params.add(new BasicNameValuePair("username",username));
-                params.add(new BasicNameValuePair("password",password));
-                params.add(new BasicNameValuePair("history",historyjson));
-                //发送数据，获取对象
-                responseint = InserthistoryPostService.send(params);
-                Log.i("tag","ShowinfoActivity:responseint = " + responseint);
-                //准备发送消息
-                Message msg = handler.obtainMessage();
-                //设置消息默认值
-                msg.what = 444;
-                //服务器返回信息的判断和处理
-                if(responseint == HISTORY_SUCCEEDED){
-                    msg.obj = "SUCCEEDED";
-                }else if (responseint == HISTORY_FAILED){
-                    msg.obj = "FAILED";
-                }else{
-                    Log.i("tag","ShowinfoAcitivity:msg.obj 错误");
-                }
-                handler.sendMessage(msg);
-            }
-        }
-    }
-
     /**
      * 插入一条历史记录
      */
     private void insert_history(String totaltime){
-        String username = FirstActivityShowMap.username;
-        String password = FirstActivityShowMap.password;
-        Log.i("tag","username="+username);
-        Log.i("tag","password="+password);
-        /**
-         * 开始发送Http请求
-         */
+        String username = MyActivityTools.currentusername;
+        String password = MyActivityTools.currentpassword;
+
+        //填充一个history对象
         History_item mhistory_item = new History_item();
         mhistory_item.setUsername(username);
         Date curdate = new Date();
@@ -763,49 +686,28 @@ public class ShowInfoActivity extends PermissionsActivity implements LocationSou
         mhistory_item.setEnd_weather(goalCityInfo[3]);
         mhistory_item.setTotaltime(totaltime);
         mhistory_item.setTour_memory("");
+        //将history对象转换成json格式的string
         Gson gson = new Gson();
         String history_json = gson.toJson(mhistory_item);
-        new InserthistoryPostThread(username,password,history_json).start();
+        new MyActivityTools.InserthistoryPostThread(username,password,history_json).start();
+        Handler mhandler = MyActivityTools.myhandler;
     }
-
-    /**
-     * 检查网络状态
-     */
-    private boolean isConnectIntent(){
-        ConnectivityManager connectivity = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(connectivity!=null){
-            NetworkInfo[] info = connectivity.getAllNetworkInfo();
-            if(info != null){
-                for(int i = 0;i<info.length;i++){
-                    if(info[i].getState() == NetworkInfo.State.CONNECTED){
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
-     *检查是否登录
-     */
-    private boolean check_is_login(){
-        String username = FirstActivityShowMap.username;
-        String password = FirstActivityShowMap.password;
-        if(username!=null && password!=null && !username.equals("") && !password.equals("")){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-
-
 
     @Override
     public void onBusRouteSearched(BusRouteResult busRouteResult, int i) {
 
+    }
+
+    /**
+     * 处理返回的GetHistoryThread的信息
+     */
+    public static void resolve_Gethistory_Handler(Message msg){
+        //处理返回线程返回的信息
+        if(msg.obj.toString().equals("SUCCEEDED")){
+            Log.i("tag:","插入旅程历史记录成功！");
+        }else{
+            Log.i("tag","向服务器中插入历史记录失败");
+        }
     }
 
     @Override
@@ -820,19 +722,13 @@ public class ShowInfoActivity extends PermissionsActivity implements LocationSou
             //时间 秒：、60转分
             long duration = drivePath.getDuration() / 60;//单位：min
 
-            /**
-             * 向历史记录数据库中插入一条旅程信息
-             */
             //向历史记录中插入一条旅程信息
             if(!isSetHistory && currentCityInfo[3] != null && goalCityInfo[3] != null) {//确保天气状况回调函数返回成功
                 isSetHistory = true;
                 /**
                  * 插入一条历史记录
                  */
-                /**
-                 * 插入一条历史记录
-                 */
-                if(check_is_login() && isConnectIntent()){
+                if(MyActivityTools.isConnectIntent(ShowInfoActivity.this)){
                     insert_history(Long.toString(duration));
                 }else{
                     Toast.makeText(ShowInfoActivity.this,"插入旅程记录失败，检查是否已经登录或者是否连接上网络~",Toast.LENGTH_SHORT).show();

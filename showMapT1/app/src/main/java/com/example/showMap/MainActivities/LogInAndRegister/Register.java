@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.showMap.ActicityTools.MyActivityTools;
 import com.example.showMap.ActivityManager.AppManager;
 import com.example.showMap.ClientHttpService.RegisterPostService;
 import com.example.showMap.R;
@@ -34,11 +35,6 @@ import java.util.List;
 
 public class Register extends AppCompatActivity {
 
-//    static int LOGIN_FAILED = 0;
-//    static int LOGIN_SUCCEEDED = 1;
-    static int REGISTER_FAILED = 2;
-    static int REGISTER_SUCCEEDED = 3;
-    Handler handler;
     private TextView toLogin;
 
     @Override
@@ -76,12 +72,11 @@ public class Register extends AppCompatActivity {
         register_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String username = register_username.getText().toString();
                 String userpsd = register_userpsd.getText().toString();
                 String userpsd_again = register_userpsd_again.getText().toString();
-
-                if(isConnectIntent()){
+                //检查网络状态
+                if(MyActivityTools.isConnectIntent(Register.this)){
                     if(username.equals("") == true)
                         Toast.makeText(Register.this,"用户名不能为空!",Toast.LENGTH_SHORT).show();
                     else if(userpsd.equals("") == true)
@@ -89,87 +84,41 @@ public class Register extends AppCompatActivity {
                     else if(userpsd.equals(userpsd_again) == false)
                         Toast.makeText(Register.this,"输入的两次密码不一致!",Toast.LENGTH_SHORT).show();
                     else{
-                        new RegisterPostThread(username,userpsd).start();
+                        new MyActivityTools.RegisterPostThread(username,userpsd).start();
+                        Handler registerhandler = MyActivityTools.myhandler;
                     }
                 }else{
                     Toast.makeText(Register.this,"网络连接不可用，请检查当前网络状态~",Toast.LENGTH_SHORT).show();
                 }
-
-
             }
         });
 
-        //Handle,Msg返回成功信息，跳转至其他Activity
-        handler = new Handler(){
-            public void handleMessage(Message msg){
-                super.handleMessage(msg);
-                if(msg.what == 222){
-                    //处理返回线程返回的信息
-                    if(msg.obj.toString().equals("SUCCEEDED")){
-                        //跳转
-                        Toast.makeText(Register.this,"注册成功!",Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Register.this,LogIn.class));
-                    }else if(msg.obj.toString().equals("FAILED")){
-                        Toast.makeText(Register.this,"注册失败，账号已被注册",Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(Register.this,"注册失败，服务器出了点问题",Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        };
     }
 
-    public class RegisterPostThread extends Thread{
-        private String username,userpsd;
-
-        public RegisterPostThread(String username, String userpsd){
-            this.username = username;
-            this.userpsd = userpsd;
-        }
-
-        @Override
-        public void run() {
-            //Sevice传回int
-            int responseInt = 0;
-            if(!username.equals("")){
-                //要发送的数据
-                List<NameValuePair> params = new ArrayList<NameValuePair>();
-                params.add(new BasicNameValuePair("username",username));
-                params.add(new BasicNameValuePair("password",userpsd));
-                //发送数据，获取对象
-                responseInt = RegisterPostService.send(params);
-                Log.i("tag","LoginActivity:responseInt = " + responseInt);
-                //准备发送消息
-                Message msg = handler.obtainMessage();
-                //设置消息默认值
-                msg.what = 222;
-                //服务器返回信息的判断和处理
-                if(responseInt == REGISTER_SUCCEEDED){
-                    msg.obj = "SUCCEEDED";
-                }else if(responseInt == REGISTER_FAILED){
-                    msg.obj = "FAILED";
-                }else{
-                    Log.i("tag","LogInAcitivity:msg.obj 错误");
+    /**
+     * 处理RegisterPostThread线程返回的信息
+     * @param msg
+     */
+    public static void resolve_Register_Handler(Message msg){
+        //处理返回线程返回的信息
+        final Context registercontext = AppManager.getInstance().getActivitycontext(Register.class);
+        if(msg.obj.toString().equals("SUCCEEDED")){
+            //跳转
+            Toast.makeText(registercontext,"注册成功!",Toast.LENGTH_SHORT).show();
+            Handler mhandler = new Handler();
+            mhandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent;
+                    intent = new Intent(registercontext,LogIn.class);
+                    registercontext.startActivity(intent);
                 }
-                handler.sendMessage(msg);
-            }
+            }, 2000);//2秒后执行Runnable中的run方法
+        }else if(msg.obj.toString().equals("FAILED")){
+            Toast.makeText(registercontext,"注册失败，账号已被注册",Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(registercontext,"注册失败，服务器出了点问题",Toast.LENGTH_SHORT).show();
         }
-    }
-
-    //检查网络状态
-    public boolean isConnectIntent(){
-        ConnectivityManager connectivity = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(connectivity!=null){
-            NetworkInfo[] info = connectivity.getAllNetworkInfo();
-            if(info != null){
-                for(int i = 0;i<info.length;i++){
-                    if(info[i].getState() == NetworkInfo.State.CONNECTED){
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
     }
 }
 

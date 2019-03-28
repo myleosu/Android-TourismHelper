@@ -8,5 +8,6 @@
     <string name="click_to_search">搜索地址</string>
     <string name="app_label">出行小助手</string>
     <string name="search_hint">搜索目的地</string>
-    <string name="back">返回</string>>
+    <string name="back">返回</string>
+    <string name="SignUp">Sign up</string>
 </resources>

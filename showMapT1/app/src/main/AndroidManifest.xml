@@ -63,23 +63,25 @@
         android:name="com.amap.api.v2.apikey"
         android:value="149cee8abe507c512d543920385db319"/>
 
-        <activity android:name=".FirstActivityShowMap">
+        <activity android:name=".MainActivities.LogInAndRegister.LogIn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ShowInfoActivity"></activity>
-        <activity android:name=".SearchActivity"></activity>
-        <receiver android:name=".AlarmReceiver" android:process=":remote" />
-        <activity android:name=".RingActivity"/>
-        <activity android:name=".LogIn"/>
-        <activity android:name=".Register"/>
-        <activity android:name=".History"/>
-        <activity android:name=".BeforeArroundSearchActivity" android:windowSoftInputMode="stateAlwaysHidden|stateHidden"/>
-        <activity android:name=".ArroundSearchActivity" />
-        <activity android:name=".Setting"/>
+        <activity android:name=".MainActivities.FirstActivityShowMap"/>
+        <activity android:name=".MainActivities.ShowInfoActivity"></activity>
+        <activity android:name=".MainActivities.SearchActivity"></activity>
+        <receiver android:name=".MainActivities.RingActivityBroadCastReceiver.AlarmReceiver" android:process=":remote" />
+        <activity android:name=".MainActivities.RingActivity"/>
+        <activity android:name=".MainActivities.LogInAndRegister.Register"/>
+        <activity android:name=".MainActivities.HistoryActivity.History"/>
+        <activity android:name=".MainActivities.ArroundActivity.BeforeArroundSearchActivity" android:windowSoftInputMode="stateAlwaysHidden|stateHidden"/>
+        <activity android:name=".MainActivities.ArroundActivity.ArroundSearchActivity" />
+        <activity android:name=".MainActivities.Setting"/>
+        <activity android:name=".MainActivities.HistoryActivity.TripThoughts"/>
+        <activity android:name=".MainActivities.LogInAndRegister.HasLogIn"/>
     </application>
 
 </manifest>

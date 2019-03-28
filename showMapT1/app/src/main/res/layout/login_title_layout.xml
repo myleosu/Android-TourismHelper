@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--定义登录界面的标题栏-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dip"
+    android:gravity="center_vertical"
+    android:padding="13dip">
+    <ImageButton
+        android:id="@+id/login_back"
+        android:layout_width="33dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/login_back"
+        android:scaleType="fitStart"
+        android:background="@drawable/sign_up_bg"
+        />
+    <Button
+        android:id="@+id/register_Button_on_login"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|right"
+        android:textSize="20sp"
+        android:text="@string/SignUp"
+        android:textAllCaps="false"
+        android:background="@null"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

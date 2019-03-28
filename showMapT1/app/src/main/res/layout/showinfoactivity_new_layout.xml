@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:background="#DA70D6">
+
+        <com.xw.repo.supl.SlidingUpPanelLayout
+            android:id="@+id/sliding_up_panel_layout"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/bg_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_bg_gradient_1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="57dp"
+                        android:background="@drawable/shape_bg_gradient_1"
+                        android:gravity="center"
+                        android:text="实时信息显示"
+                        android:textSize="24dp"
+                        android:textColor="@color/white"
+                        tools:layout_editor_absoluteX="53dp" />
+
+                    <LinearLayout
+                        android:id="@+id/full"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="5dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toTopOf="@+id/roadInfo"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/title"
+                        android:background="@android:color/transparent">
+
+                        <TextView
+                            android:id="@+id/progesss_value1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/percentage"
+                            android:gravity="center"
+                            android:paddingBottom="8dp"
+                            android:paddingLeft="4dp"
+                            android:paddingRight="4dp"
+                            android:paddingTop="2dp"
+                            android:text="0%"
+                            android:textColor="@android:color/white"
+                            android:textSize="12sp" />
+
+                        <ProgressBar
+                            android:id="@+id/progesss1"
+                            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                            android:layout_width="330dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/myprogressbar"
+                            android:indeterminateDrawable="@android:drawable/progress_indeterminate_horizontal"
+                            android:indeterminateOnly="false"
+                            android:max="100"
+                            android:maxHeight="50dp"
+                            android:minHeight="16dp"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/myprogressbar" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
+                        <TextView
+                            android:id="@+id/roadInfo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="18"
+                            android:background="@drawable/text_view_border"
+                            android:gravity="center"
+                            android:text="旅程进度：50%\n\n当前城市为：佛山市\n\n当前道路为：桃园西路\n\n预计到达时间：54min"
+                            android:textSize="16dp"
+                            android:textColor="@color/white"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </android.support.constraint.ConstraintLayout>
+        </com.xw.repo.supl.SlidingUpPanelLayout>
+    </LinearLayout>
+</LinearLayout>

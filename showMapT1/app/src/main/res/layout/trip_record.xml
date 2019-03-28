@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:weightSum="1">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="219dp"
+            android:layout_marginTop="0dp"
+            android:src="@drawable/triprecord_img"
+            android:layout_gravity="center_horizontal|top"
+            tools:ignore="ContentDescription"
+            android:scaleType="fitStart"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:src="@drawable/user_big"
+            app:civ_border_color="@color/grey"
+            app:civ_border_width="0dp" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/routeInfo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:hint="起终点信息" />
+
+    <EditText
+        android:id="@+id/trip_mind"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.87"
+        android:background="@null"
+        android:gravity="left|top"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:hint="我的感想"
+        android:inputType="textMultiLine"
+        android:selectAllOnFocus="false" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_weight="0.13"
+        android:background="@color/white">
+
+        <ImageButton
+            android:background="@drawable/lv_item_selector"
+            android:id="@+id/delete_record_btn"
+            android:layout_width="0dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33"
+            android:scaleType="centerInside"
+            android:src="@drawable/delete"
+            android:visibility="visible" />
+        <ImageButton
+            android:background="@drawable/lv_item_selector"
+            android:id="@+id/save_record_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/save"
+            android:visibility="visible"/>
+
+        <ImageButton
+            android:background="@drawable/lv_item_selector"
+            android:id="@+id/share_record_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/share"
+            android:visibility="visible"/>
+    </LinearLayout>
+</LinearLayout>

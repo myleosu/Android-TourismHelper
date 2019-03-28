@@ -30,7 +30,7 @@
                 android:id="@+id/first_map_view_user_button"
                 android:layout_width="25dp"
                 android:layout_height="43dp"
-                android:src="@drawable/user"
+                android:src="@drawable/first_user_img"
                 android:clickable="true"
                 android:background="@drawable/before_goto_searcharround_back"
                 android:layout_centerVertical="true"
@@ -52,7 +52,7 @@
                 android:maxLength="20"
                 android:maxLines="1"
                 android:textColor="#000000"
-                android:textSize="16.0sp"
+                android:textSize="20.0sp"
                 android:background="@drawable/before_goto_searcharround_tv"
                 android:hint="搜索目的地"
                 />

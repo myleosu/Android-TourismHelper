@@ -1,55 +1,83 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--登录界面布局-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    android:background="#7adfb8"
+    tools:context=".MainActivities.LogInAndRegister.LogIn" >
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/login_user_big_imge"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:src="@drawable/user_big"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+    <include
+        android:id="@+id/main_title"
+        layout="@layout/login_title_layout" />
 
-    <EditText
-        android:layout_width="400dp"
-        android:layout_height="60dp"
-        android:inputType="textPersonName"
-        android:hint="请输入您的用户名"
-        android:id="@+id/login_username_edit"
-        android:layout_below="@+id/login_user_big_imge"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        />
-    <EditText
-        android:layout_width="400dp"
-        android:layout_height="60dp"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:hint="请输入您的密码"
-        android:id="@+id/login_password_edit"
-        android:layout_below="@+id/login_username_edit"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
-    <Button
-        android:id="@+id/Login_Button_on_login"
-        android:layout_width="200dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@drawable/btn_selector"
-        android:text="登录"/>
+        android:layout_below="@+id/main_title"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/register_Button_on_login"
-        android:layout_width="200dp"
+        <ImageView
+            android:layout_width="55dip"
+            android:layout_height="55dip"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:gravity="center"
+            android:text="出行小助手"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="您的出行伴侣"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_selector"
-        android:text="注册"
-        android:layout_marginTop="24dp"
-        android:layout_below="@+id/Login_Button_on_login"
-        android:layout_alignLeft="@+id/Login_Button_on_login"
-        android:layout_alignStart="@+id/Login_Button_on_login" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true">
+
+        <include
+            android:id="@+id/input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="160dip"
+            layout="@layout/input_layout"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/layout_progress" />
+
+        <include
+            android:id="@+id/layout_progress"
+            android:layout_width="match_parent"
+            android:layout_height="130dip"
+            layout="@layout/progress_layout"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/Login_Button_on_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/input_layout"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="15dip"
+            android:background="@drawable/text_bg"
+            android:gravity="center"
+            android:paddingBottom="2dip"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip"
+            android:paddingTop="2dip"
+            android:text="Login"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            />
+    </RelativeLayout>
+
 </RelativeLayout>

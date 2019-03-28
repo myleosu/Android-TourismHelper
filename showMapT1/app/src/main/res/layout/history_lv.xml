@@ -10,7 +10,7 @@
         android:layout_weight="1"
         android:choiceMode="singleChoice" />
     <Button
-        android:id="@+id/delete_history_btn"
+        android:id="@+id/delete_history_btn_on_SearchActivity"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="10dp"

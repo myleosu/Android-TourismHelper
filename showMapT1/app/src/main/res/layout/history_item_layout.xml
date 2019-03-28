@@ -1,33 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--单个历史记录布局-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/history_item_TextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="2019/02/28佛山(阴天)--深圳(晴天)\n旅程时间：1h40min"
-        android:layout_marginLeft="15dp"
-        android:layout_gravity="center_vertical"
-        />
-
-    <Button
-        android:id="@+id/history_item_Button"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="旅行感想"
-        android:layout_gravity="right"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
-        />
-
-</LinearLayout>
-
-
-<!--android:layout-width="0dp"
     android:layout_height="wrap_content"
-    android:layout_weight="1"会把match_parent剩下的布局给撑满,把按钮挤到右边去-->
+    android:layout_centerInParent="true"
+    android:layout_gravity="center" >
+
+    <android.support.v7.widget.CardView
+        android:layout_marginTop="58dp"
+        android:id="@+id/card_view"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="#fff"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="6dp"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="10dp">
+
+        <RelativeLayout
+            android:id="@+id/record_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/history_item_TextView"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@id/history_item_photo"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textColor="@color/grey"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/history_item_Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/history_item_TextView"
+                android:background="@drawable/register_btn_bg"
+                android:gravity="center"
+                android:text="Read More"
+                android:textColor="@color/grey" />
+
+            <ImageView
+                android:id="@+id/history_item_photo"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/tourpthoto"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
+    <!--android:layout-width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"会把match_parent剩下的布局给撑满,把按钮挤到右边去-->

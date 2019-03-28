@@ -53,9 +53,9 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
-        android:layout_weight="1.35"
-        android:scaleType="centerInside"
-        android:src="@mipmap/want_to_go"
+        android:layout_weight="0.8"
         android:background="@drawable/arround_search_listview_layout"
-        android:padding="3dp"/>
+        android:padding="3dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/want_to_go" />
 </LinearLayout>
